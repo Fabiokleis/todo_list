@@ -3,6 +3,8 @@ import check from '../icons/check-circle.svg';
 import notCheck from '../icons/circle.svg';
 import deleted from '../icons/trash-2.svg';
 import Card from './card.js';
+import {useDispatch} from 'react-redux';
+import {deleteItem, changeDone} from '../actions/listAction.js'
 
 function Done(props){
     if(props.done){
@@ -13,15 +15,16 @@ function Done(props){
 }
 
 function ListItem(props){
+    const dispatch = useDispatch();
     return (
         <li className={props.item.done?"done":""}>
             <Card className={props.item.done?"done item":"item"}>
                 {props.item.text}
                 <div>
-                    <button onClick={() => {props.onDone(props.item)}}> 
+                    <button onClick={() => dispatch(changeDone(props.item.id))}> 
                         <Done done={props.item.done}></Done>
                     </button>
-                    <button onClick={() => {props.OnItemDeleted(props.item)}}>
+                    <button onClick={() => dispatch(deleteItem(props.item.id))}>
                         <img src={deleted} alt="x" />
                     </button>
                 </div>

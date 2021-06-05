@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import {addItem} from '../actions/listAction.js';
+import {useDispatch} from 'react-redux';
 
 function Form(props){
+    const dispatch = useDispatch();
 
     const [_text, setText] = useState("");
 
@@ -9,18 +12,19 @@ function Form(props){
         setText(text);
     }
     
-    function addItem(event){
+    function addText(event){
         event.preventDefault();
         if(_text){
-            props.onAddItem(_text);
+            dispatch(addItem(_text));
             setText("");
+            props.OnHideModal();
         }
     }
     
     return (
         <form>
             <input onChange={handleChange} type="text" value={_text}></input>
-            <button onClick={addItem}>add</button>
+            <button onClick={addText}>add</button>
         </form>
     );
 
