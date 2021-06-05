@@ -7,7 +7,7 @@ function List(props){
 
     return (
         <ul>
-            {items.map(item => <ListItem item={item} key={item.id}></ListItem>)}
+            {items.map((item, index) => <ListItem item={item} key={index}></ListItem>)}
        </ul>);
   
 }

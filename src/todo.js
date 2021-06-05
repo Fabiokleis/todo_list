@@ -7,7 +7,21 @@ import List from './components/list.js';
 import Modal from './components/modal.js';
 import './todo.css';
 
-const store = createStore(ListReducer);
+function saveStateOnLocalStorage(state){
+    localStorage.setItem('saved_items', JSON.stringify(state));
+}
+
+function getStateSavedOnLocalStorage(){
+    const saved_items = JSON.parse(localStorage.getItem(('saved_items')));
+    if(saved_items){
+        return saved_items;
+    }else{
+        return [];
+    }
+}
+
+const store = createStore(ListReducer, getStateSavedOnLocalStorage());
+store.subscribe(() => saveStateOnLocalStorage(store.getState()));
 
 function Todo(){
    
